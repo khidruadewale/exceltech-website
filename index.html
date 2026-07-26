@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Excel Technology Solutions Ltd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B0F1A;
+  --ink2:#141B2D;
+  --green:#00C48C;
+  --green2:#00A876;
+  --amber:#F5A623; 
+  --white:#FFFFFF;
+  --muted:#8A97B5;
+  --body-text:#C5CCDC;
+  --card:#141B2D;
+  --border:rgba(0,196,140,0.15);
+  --border2:rgba(255,255,255,0.08);
+  --glow:rgba(0,196,140,0.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;animation:fadeIn 0.4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MAIN NAV ── */
+#main-nav{
+  position:fixed;top:0;left:0;right:0;z-index:2000;
+  height:68px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;background:rgba(11,15,26,0.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);transition:background 0.3s;
+}
+.logo-wrap{
+  display:flex;align-items:center;cursor:pointer;
+  text-decoration:none;
+}
+.logo-mark{
+  height:55px;
+  width:auto;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  background:transparent;
+  border-radius:0;
+  box-shadow:none;
+}
+.logo-mark img{
+  height:55px;
+  width:auto;
+  object-fit:contain;
+  display:block;
+}
+
+.logo-text{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;line-height:1.2}
+.logo-sub{font-size:0.6rem;color:var(--muted);font-weight:400;text-transform:uppercase;letter-spacing:0.1em
+}
+.nav-items{
+  display:flex;align-items:center;
+  gap:0.2rem;list-style:none;
+  margin:0;padding:0;
+  height:68px;
+}
+.nav-items li{
+  display:flex;align-items:center;
+  height:100%;
+}
+.nav-items li a,.nav-items li span{
+  display:flex;align-items:center;
+  padding:8px 14px;border-radius:8px;
+  font-size:0.85rem;font-weight:500;color:var(--body-text);
+  cursor:pointer;transition:all 0.2s;
+  white-space:nowrap;
+  height:auto;
+}
+.nav-items li a:hover,.nav-items li span:hover{
+  color:#fff;background:rgba(255,255,255,0.06)
+}
+.nav-items li.nav-active span,
+.nav-items li.nav-active a{color:var(--green)}
+
+.nav-right{
+  display:flex;align-items:center;
+  gap:10px;flex-shrink:0;
+}
+.nav-git{
+  background:var(--green);color:#031a12;
+  padding:9px 20px;border-radius:8px;
+  font-size:0.83rem;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+  transition:all 0.2s;border:none;
+  box-shadow:0 0 18px var(--glow);
+  white-space:nowrap;cursor:pointer;
+}
+.nav-git:hover{
+  background:var(--green2);
+  transform:translateY(-1px);
+}
+.nav-lms-btn{
+  background:transparent;
+  border:1.5px solid var(--border);
+  color:var(--body-text);
+  padding:8px 16px;border-radius:8px;
+  font-size:0.83rem;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+  transition:all 0.2s;cursor:pointer;
+  white-space:nowrap;
+}
+.nav-lms-btn:hover{border-color:var(--amber);color:var(--amber)}
+.hamburger{
+  display:none;flex-direction:column;
+  gap:5px;background:none;border:none;padding:4px;cursor:pointer;
+}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:#fff;border-radius:2px;transition:all 0.3s;
+}
+.mob-nav{
+  display:none;position:fixed;top:68px;left:0;right:0;z-index:1999;
+  background:rgba(11,15,26,0.98);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+  padding:20px 5%;flex-direction:column;gap:4px;
+}
+.mob-nav.open{display:flex}
+.mob-nav a,.mob-nav span{
+  padding:12px 10px;font-size:1rem;color:var(--body-text);
+  border-bottom:1px solid var(--border2);cursor:pointer;
+  font-weight:500;transition:color 0.2s;
+}
+.mob-nav a:last-child,.mob-nav span:last-child{border:none}
+.mob-nav a:hover,.mob-nav span:hover{color:var(--green)}
+
+/* ── COMMON ── */
+.page-wrap{padding-top:68px}
+.section{padding:90px 5%}
+.section.dark{background:var(--ink2)}
+.eyebrow{
+  display:inline-block;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--green);margin-bottom:12px;
+}
+.sec-title{font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:800;line-height:1.15;margin-bottom:14px;letter-spacing:-0.02em}
+.sec-desc{font-size:0.97rem;line-height:1.78;color:var(--body-text);max-width:580px}
+.sec-head{margin-bottom:56px}
+.sec-head.center{text-align:center}.sec-head.center .sec-desc{margin:0 auto}
+
+.btn-green{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green);color:#031a12;
+  padding:13px 30px;border-radius:9px;
+  font-size:0.93rem;font-weight:700;border:none;
+  box-shadow:0 0 24px var(--glow);transition:all 0.25s;
+}
+.btn-green:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 6px 30px var(--glow)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid var(--border);color:#fff;
+  padding:13px 30px;border-radius:9px;
+  font-size:0.93rem;font-weight:500;background:transparent;
+  transition:all 0.25s;
+}
+.btn-outline:hover{border-color:var(--green);background:var(--glow);transform:translateY(-2px)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ══════════════════════════════
+   HOME PAGE
+══════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding:120px 5% 80px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(135deg, rgba(11,15,26,0.82) 0%, rgba(11,15,26,0.65) 100%),
+    radial-gradient(ellipse 70% 55% at 65% 45%,rgba(0,196,140,0.12) 0%,transparent 65%);
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+.hero-slide:first-child {
+  opacity: 1;
+}
+.circuit-lines{position:absolute;inset:0;z-index:0;opacity:0.055}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,196,140,0.1);border:1px solid var(--border);
+  padding:6px 14px;border-radius:100px;
+  font-size:0.76rem;font-weight:700;color:var(--green);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:24px;
+}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-title{font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:800;line-height:1.08;margin-bottom:22px;letter-spacing:-0.03em}
+.hero-title .g{color:var(--green)}
+.hero-title .a{color:var(--amber)}
+.hero-p{font-size:1.06rem;line-height:1.78;color:var(--body-text);max-width:520px;margin-bottom:36px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{
+  display:flex;gap:48px;margin-top:56px;padding-top:44px;
+  border-top:1px solid var(--border2);flex-wrap:wrap;
+}
+.stat-n{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;line-height:1}
+.stat-n span{color:var(--green)}
+.stat-l{font-size:0.75rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em}
+.hero-gfx{
+  position:absolute;right:4%;top:50%;transform:translateY(-50%);
+  width:42%;max-width:520px;z-index:1;pointer-events:none;
+}
+.hex-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;transform:rotate(-10deg)}
+.hex-cell{
+  aspect-ratio:1;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  background:rgba(20,27,45,0.9);border:1px solid var(--border2);
+  transition:all 0.4s;
+  animation:hexFloat ease-in-out infinite alternate;
+}
+.hex-cell:nth-child(1){animation-duration:3.1s}
+.hex-cell:nth-child(2){animation-duration:3.7s;animation-delay:.4s}
+.hex-cell:nth-child(3){animation-duration:2.9s;animation-delay:.8s}
+.hex-cell:nth-child(4){animation-duration:4.2s;animation-delay:1.2s}
+.hex-cell:nth-child(5){animation-duration:3.4s;animation-delay:.2s}
+.hex-cell:nth-child(6){animation-duration:3.8s;animation-delay:1s;background:rgba(0,196,140,0.12);border-color:var(--border)}
+.hex-cell:nth-child(7){animation-duration:3s;animation-delay:.6s}
+.hex-cell:nth-child(8){animation-duration:4s;animation-delay:1.4s;background:rgba(245,166,35,0.08);border-color:rgba(245,166,35,0.2)}
+@keyframes hexFloat{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+
+/* Home — why us */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;padding:30px 26px;
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.why-card::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(0,196,140,0.06),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.why-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.why-card:hover::before{opacity:1}
+.why-icon{font-size:2rem;margin-bottom:16px}
+.why-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.why-card p{font-size:0.86rem;color:var(--body-text);line-height:1.7}
+
+/* ══════════════════════════════
+   SERVICES PAGE
+══════════════════════════════ */
+.srv-intro{padding:90px 5% 50px;text-align:center}
+.srv-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;padding:0 5% 90px;
+}
+.srv-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  min-height:260px;display:flex;align-items:flex-end;
+  border:1px solid rgba(255,255,255,0.04);
+  transition:all 0.35s;
+}
+.srv-card-bg{
+  position:absolute;inset:0;z-index:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:4.5rem;
+  transition:transform 0.5s;
+}
+.srv-card:hover .srv-card-bg{transform:scale(1.08)}
+.srv-card-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(0deg,rgba(11,15,26,0.88) 40%,rgba(11,15,26,0.35) 100%);
+  transition:background 0.35s;
+}
+.srv-card:hover .srv-card-overlay{
+  background:linear-gradient(0deg,rgba(0,60,36,0.92) 30%,rgba(0,30,20,0.7) 100%);
+}
+.srv-card-body{position:relative;z-index:2;padding:22px 20px;width:100%}
+.srv-num{font-size:0.68rem;font-weight:700;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px}
+.srv-card h3{font-size:1.05rem;font-weight:700;margin-bottom:6px;transition:color 0.2s}
+.srv-card:hover h3{color:var(--green)}
+.srv-card p{font-size:0.78rem;color:var(--body-text);line-height:1.55;opacity:0}
+.srv-card:hover p{opacity:1;transition:opacity 0.3s 0.1s}
+.srv-card-arrow{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:0.75rem;font-weight:700;color:var(--green);
+  margin-top:10px;opacity:0;transform:translateX(-8px);transition:all 0.3s 0.15s;
+}
+.srv-card:hover .srv-card-arrow{opacity:1;transform:translateX(0)}
+
+/* Service detail modal */
+.srv-modal-overlay{
+  display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.srv-modal-overlay.open{display:flex}
+.srv-modal{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:20px;max-width:600px;width:100%;max-height:85vh;
+  overflow-y:auto;padding:36px 36px 32px;position:relative;
+  animation:modalIn 0.3s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.93)}to{opacity:1;transform:scale(1)}}
+.modal-close{
+  position:absolute;top:18px;right:18px;
+  background:rgba(255,255,255,0.07);border:none;color:#fff;
+  width:34px;height:34px;border-radius:8px;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background 0.2s;
+}
+.modal-close:hover{background:rgba(255,255,255,0.15)}
+.modal-icon{font-size:3rem;margin-bottom:16px}
+.modal-title{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+.modal-sub{font-size:0.85rem;color:var(--muted);margin-bottom:24px}
+.modal-divider{height:1px;background:var(--border2);margin:20px 0}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.modal-list li{
+  display:flex;align-items:center;gap:12px;
+  font-size:0.92rem;color:var(--body-text);padding:10px 14px;
+  background:rgba(0,196,140,0.05);border:1px solid var(--border);
+  border-radius:9px;
+}
+.modal-list li::before{
+  content:'→';color:var(--green);font-weight:700;font-size:0.85rem;flex-shrink:0;
+}
+
+/* ══════════════════════════════
+   ABOUT PAGE
+══════════════════════════════ */
+.about-hero{
+  padding:110px 5% 70px;
+  background:linear-gradient(135deg,var(--ink) 60%,rgba(0,50,35,0.25) 100%);
+  position:relative;overflow:hidden;
+}
+.about-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-tag{
+  display:inline-block;background:rgba(0,196,140,0.1);
+  border:1px solid var(--border);color:var(--green);
+  padding:5px 12px;border-radius:6px;font-size:0.73rem;
+  font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;
+}
+.about-hero h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.15;margin-bottom:16px}
+.about-hero p{font-size:0.97rem;line-height:1.78;color:var(--body-text)}
+.about-vis{display:flex;flex-direction:column;gap:16px}
+.about-stat-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;padding:22px 24px;
+  display:flex;align-items:center;gap:18px;
+  transition:border-color 0.3s;
+}
+.about-stat-card:hover{border-color:var(--border)}
+.asc-icon{font-size:2rem;flex-shrink:0}
+.asc-n{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--green)}
+.asc-l{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:70px 5%}
+.vm-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;padding:32px 28px;
+}
+.vm-card .vm-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.vm-card .vm-icon{font-size:1.8rem}
+.vm-card h3{font-size:1.15rem;font-weight:800}
+.vm-card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.vm-card ul li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:0.87rem;color:var(--body-text);line-height:1.6;
+}
+.vm-card ul li::before{content:'▸';color:var(--green);flex-shrink:0;margin-top:1px}
+
+.team-section{padding:0 5% 70px}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:700px}
+.team-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;padding:28px 24px;
+  display:flex;align-items:center;gap:20px;
+  transition:border-color 0.3s;
+}
+.team-card:hover{border-color:var(--border)}
+.team-avatar{
+  width:64px;height:64px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(0,196,140,0.25),rgba(0,196,140,0.06));
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green);
+}
+.team-name{font-size:0.97rem;font-weight:700;margin-bottom:3px}
+.team-role{font-size:0.78rem;color:var(--muted)}
+
+.clients-section{padding:0 5% 80px}
+.clients-grid{display:flex;flex-wrap:wrap;gap:14px}
+.client-chip{
+  background:var(--card);border:1px solid var(--border2);
+  padding:10px 18px;border-radius:9px;font-size:0.85rem;color:var(--body-text);
+  display:flex;align-items:center;gap:8px;transition:border-color 0.2s;
+}
+.client-chip:hover{border-color:var(--border)}
+.client-chip span{font-size:1rem}
+
+/* ══════════════════════════════
+   PORTFOLIO PAGE
+══════════════════════════════ */
+.port-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  padding:30px 5% 90px;
+}
+.port-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:15px;overflow:hidden;
+  transition:all 0.3s;cursor:pointer;
+}
+.port-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.35)}
+.port-thumb{
+  height:170px;display:flex;align-items:center;justify-content:center;
+  font-size:3rem;position:relative;overflow:hidden;
+}
+.port-body{padding:20px}
+.port-year{
+  font-size:0.68rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--green);margin-bottom:6px;
+}
+.port-card h3{font-size:0.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.port-card p{font-size:0.8rem;color:var(--body-text);line-height:1.65}
+
+.cert-section{padding:50px 5% 90px;background:var(--ink2)}
+.cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:760px}
+.cert-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;padding:24px 22px;
+  display:flex;align-items:flex-start;gap:16px;
+  transition:border-color 0.3s;
+}
+.cert-card:hover{border-color:var(--border)}
+.cert-icon{font-size:2rem;flex-shrink:0;margin-top:2px}
+.cert-name{font-size:0.95rem;font-weight:700;margin-bottom:4px}
+.cert-issuer{font-size:0.78rem;color:var(--muted)}
+
+/* ══════════════════════════════
+   BLOG PAGE
+══════════════════════════════ */
+.blog-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  padding:30px 5% 90px;
+}
+.blog-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:15px;overflow:hidden;transition:all 0.3s;cursor:pointer;
+}
+.blog-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.blog-thumb{height:155px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+.blog-body{padding:20px}
+.blog-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.blog-cat{
+  font-size:0.67rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--green);background:rgba(0,196,140,0.1);
+  padding:3px 8px;border-radius:4px;
+}
+.blog-date{font-size:0.73rem;color:var(--muted)}
+.blog-card h3{font-size:0.93rem;font-weight:700;line-height:1.45;margin-bottom:8px}
+.blog-card p{font-size:0.8rem;color:var(--body-text);line-height:1.65}
+.blog-read{
+  display:inline-flex;align-items:center;gap:5px;margin-top:12px;
+  font-size:0.78rem;font-weight:700;color:var(--green);transition:gap 0.2s;
+}
+.blog-read:hover{gap:10px}
+
+/* Blog modal */
+.blog-modal-overlay{
+  display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);
+  align-items:flex-start;justify-content:center;padding:80px 20px 40px;overflow-y:auto;
+}
+.blog-modal-overlay.open{display:flex}
+.blog-modal{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:20px;max-width:720px;width:100%;
+  padding:40px;position:relative;animation:modalIn 0.3s ease;
+}
+.blog-modal-close{
+  position:absolute;top:16px;right:16px;
+  background:rgba(255,255,255,0.07);border:none;color:#fff;
+  width:34px;height:34px;border-radius:8px;font-size:1.1rem;
+  cursor:pointer;transition:background 0.2s;
+}
+.blog-modal-close:hover{background:rgba(255,255,255,0.15)}
+.bm-emoji{font-size:3rem;margin-bottom:16px}
+.bm-cat{
+  display:inline-block;font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--green);background:rgba(0,196,140,0.1);
+  padding:4px 10px;border-radius:5px;margin-bottom:12px;
+}
+.bm-title{font-size:1.6rem;font-weight:800;margin-bottom:8px;line-height:1.2}
+.bm-date{font-size:0.8rem;color:var(--muted);margin-bottom:24px}
+.bm-body{font-size:0.92rem;color:var(--body-text);line-height:1.85}
+.bm-body p{margin-bottom:14px}
+.bm-body h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff;margin:22px 0 8px}
+
+/* ══════════════════════════════
+   ACADEMY PAGE
+══════════════════════════════ */
+#academy-subnav{
+  position:sticky;top:68px;z-index:1500;
+  background:rgba(20,27,45,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:54px;
+}
+.academy-nav-items{display:flex;gap:0.1rem;list-style:none}
+.academy-nav-items li span{
+  display:block;padding:6px 13px;border-radius:7px;
+  font-size:0.82rem;font-weight:500;color:var(--body-text);cursor:pointer;
+  transition:all 0.2s;
+}
+.academy-nav-items li span:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.academy-nav-items li.acdm-active span{color:var(--amber)}
+.academy-signup{
+  background:var(--amber);color:#1a0e00;
+  padding:7px 18px;border-radius:7px;
+  font-size:0.8rem;font-weight:700;border:none;
+  transition:all 0.2s;
+}
+.academy-signup:hover{background:#00C48C;transform:translateY(-1px)}
+.academy-sub-page{display:none}
+.academy-sub-page.active{display:block}
+.academy-hero{
+  padding:80px 5% 60px;
+  background:linear-gradient(135deg,var(--ink),rgba(30,18,0,0.5));}
+.academy-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:12px}
+.academy-hero p{font-size:0.97rem;color:var(--body-text);max-width:580px;line-height:1.75}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:50px 5% 60px}
+.prog-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;overflow:hidden;
+  transition:all 0.3s;}
+.prog-card:hover{
+  border-color:rgba(245,166,35,0.3);
+  transform:translateY(-3px);
+  box-shadow:0 10px 36px rgba(0,0,0,0.3)
+}
+/* ── Image at top of card ── */
+.prog-thumb{
+  width:100%;
+  height:180px;
+  overflow:hidden;
+  position:relative;
+  background:var(--ink2);
+}
+.prog-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.5s ease;
+}
+.prog-card:hover .prog-thumb img{
+  transform:scale(1.06);
+}
+/* ── Fallback emoji if no image ── */
+.prog-thumb-emoji{
+  width:100%;height:180px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;
+  background:linear-gradient(135deg,var(--ink2),var(--card));
+}
+
+/* ── Text content below image ── */
+.prog-body{
+  padding:22px 22px 20px;
+}
+.prog-icon{font-size:1.4rem;margin-bottom:10px}
+.prog-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.prog-card p{font-size:0.83rem;color:var(--body-text);line-height:1.65;margin-bottom:16px}
+.prog-price{
+  font-family:'Syne',sans-serif;font-size:1.1rem;
+  font-weight:700;color:var(--amber);margin-bottom:14px
+}
+.prog-tag{
+  font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:100px;
+  background:rgba(245,166,35,0.1);color:var(--amber);
+  border:1px solid rgba(245,166,35,0.25);
+  display:inline-block;margin-right:6px;
+}
+.enroll-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--amber);color:#1a0e00;
+  padding:9px 18px;border-radius:8px;
+  font-size:0.82rem;font-weight:700;border:none;
+  cursor:pointer;transition:all 0.2s;margin-top:14px;
+}
+.enroll-btn:hover{background:#ffc44d;transform:translateY(-1px)
+}
+.delivery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 5% 60px}
+.delivery-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:14px;
+  padding:26px 22px;display:flex;gap:16px;transition:border-color 0.3s;
+}
+.delivery-card:hover{border-color:var(--border)}
+.del-icon{font-size:1.8rem;flex-shrink:0}
+.del-title{font-size:0.97rem;font-weight:700;margin-bottom:6px}
+.del-p{font-size:0.83rem;color:var(--body-text);line-height:1.65}
+
+.biz-units{padding:0 5% 80px}
+.biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.biz-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;padding:30px 24px;transition:all 0.3s;
+}
+.biz-card:hover{border-color:var(--border);transform:translateY(-3px)}
+.biz-icon{font-size:2.2rem;margin-bottom:14px}
+.biz-card h3{font-size:1rem;font-weight:700;margin-bottom:10px}
+.biz-card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.biz-card ul li{font-size:0.82rem;color:var(--body-text);padding-left:14px;position:relative;line-height:1.55}
+.biz-card ul li::before{content:'•';position:absolute;left:0;color:var(--amber)}
+
+/* ══════════════════════════════
+   GET IN TOUCH PAGE
+══════════════════════════════ */
+.contact-page{padding:100px 5% 80px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+.contact-info h2{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;margin-bottom:14px}
+.contact-info p{font-size:0.95rem;color:var(--body-text);line-height:1.78;margin-bottom:32px}
+.contact-items{display:flex;flex-direction:column;gap:16px}
+.ci-row{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 18px;border-radius:12px;
+  background:var(--card);border:1px solid var(--border2);transition:border-color 0.3s;
+}
+.ci-row:hover{border-color:var(--border)}
+.ci-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.ci-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:2px}
+.ci-val{font-size:0.9rem;color:#fff;font-weight:500}
+.contact-form,
+.contact-form-box{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:36px 32px}
+.contact-form h3,
+.contact-form-box h3{font-size:1.2rem;font-weight:800;margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--body-text);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.08em}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1.5px solid var(--border2);border-radius:9px;
+  padding:11px 14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color 0.2s;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--green)}
+.form-group textarea{resize:vertical;min-height:110px}
+.form-group select option{background:var(--ink2);color:#fff}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.submit-btn{
+  width:100%;padding:13px;border-radius:9px;
+  background:var(--green);color:#031a12;
+  font-size:0.95rem;font-weight:700;border:none;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 0 20px var(--glow);transition:all 0.25s;
+}
+.submit-btn:hover{background:var(--green2);transform:translateY(-1px);box-shadow:0 4px 28px var(--glow)}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  background:#06090f;
+  padding:60px 5% 28px;
+  border-top:1px solid var(--border2);
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;margin-bottom:48px}
+.footer-brand .logo-wrap{margin-bottom:14px}
+.footer-brand>p{font-size:0.84rem;color:var(--muted);line-height:1.75;max-width:260px}
+.social-row{display:flex;gap:10px;margin-top:18px}
+.soc-btn{
+  width:36px;height:36px;border-radius:9px;
+  border:1px solid var(--border2);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:0.85rem;font-weight:700;
+  text-decoration:none;transition:all 0.2s;
+}
+.soc-btn:hover{border-color:var(--border);background:var(--glow);color:var(--green)}
+.footer-col h5{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-col ul li{font-size:0.84rem}
+.footer-col ul li a,.footer-col ul li span{color:var(--muted);cursor:pointer;transition:color 0.2s}
+.footer-col ul li a:hover,.footer-col ul li span:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid var(--border2);padding-top:24px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.78rem;color:var(--muted);flex-wrap:wrap;gap:8px;
+}
+.hq-pill{
+  display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--muted);
+}
+
+/* ══════════════════════════════
+   GRADIENT BGs
+══════════════════════════════ */
+.gb1{background:linear-gradient(135deg,#0a2a1a,#0d3320)}
+.gb2{background:linear-gradient(135deg,#1a1200,#2a1f00)}
+.gb3{background:linear-gradient(135deg,#0a0d2a,#12184a)}
+.gb4{background:linear-gradient(135deg,#1a0028,#2d0050)}
+.gb5{background:linear-gradient(135deg,#00181a,#003030)}
+.gb6{background:linear-gradient(135deg,#1a1400,#3a2800)}
+.gb7{background:linear-gradient(135deg,#1a0005,#3a000f)}
+.gb8{background:linear-gradient(135deg,#001a2a,#003055)}
+.gb9{background:linear-gradient(135deg,#0d1a0d,#1a3d1a)}
+
+.pb1{background:linear-gradient(135deg,#0a1a10,#143d20)}
+.pb2{background:linear-gradient(135deg,#1a1000,#3a2200)}
+.pb3{background:linear-gradient(135deg,#000d1a,#001a38)}
+.pb4{background:linear-gradient(135deg,#100a00,#2a1e00)}
+.pb5{background:linear-gradient(135deg,#001a10,#003824)}
+.pb6{background:linear-gradient(135deg,#0d0020,#200040)}
+.pb7{background:linear-gradient(135deg,#1a0d00,#3a1e00)}
+.pb8{background:linear-gradient(135deg,#001218,#003040)}
+.pb9{background:linear-gradient(135deg,#0a1a0a,#163016)}
+
+/* ══════════════════════════════
+   RESPONSIVE — ALL DEVICES
+══════════════════════════════ */
+
+/* ── TABLET LANDSCAPE & SMALL DESKTOP (max 1024px) ── */
+@media(max-width:1024px){
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .srv-grid{grid-template-columns:repeat(2,1fr)}
+  .port-grid{grid-template-columns:repeat(2,1fr)}
+  .blog-grid{grid-template-columns:repeat(2,1fr)}
+  .programs-grid{grid-template-columns:repeat(2,1fr)}
+  .biz-grid{grid-template-columns:1fr 1fr}
+  .about-hero-grid{grid-template-columns:1fr;gap:40px}
+  .vm-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .hero-gfx{display:none}
+  .srv-intro{padding:80px 5% 40px}
+  .contact-page{padding:90px 5% 60px}
+}
+
+/* ── TABLET PORTRAIT (max 768px) ── */
+@media(max-width:768px){
+
+  /* Navigation */
+  .nav-items,.nav-git,.nav-lms-btn{display:none}
+  .hamburger{display:flex}
+  #main-nav{height:60px;padding:0 4%}
+  .mob-nav{top:60px;padding:16px 4%;gap:0}
+  .mob-nav a,.mob-nav span{padding:14px 12px;font-size:0.95rem}
+
+  /* Hero section */
+  .hero{padding:85px 4% 55px;min-height:100svh;align-items:flex-start}
+  .hero-title{font-size:clamp(1.9rem,7.5vw,2.8rem);line-height:1.15}
+  .hero-p{font-size:0.93rem;margin-bottom:26px}
+  .hero-btns{flex-direction:column;gap:10px}
+  .hero-btns .btn-green,
+  .hero-btns .btn-outline{width:100%;justify-content:center;padding:14px 20px}
+  .hero-stats{gap:18px;margin-top:32px;padding-top:26px;flex-wrap:wrap}
+  .stat-n{font-size:1.8rem}
+  .stat-l{font-size:0.68rem}
+  .hero-badge{font-size:0.68rem;padding:5px 10px}
+  .hero-gfx{display:none}
+
+  /* Grids — all single column */
+  .why-grid{grid-template-columns:1fr}
+  .srv-grid{grid-template-columns:1fr;padding:0 4% 60px;gap:2px}
+  .port-grid{grid-template-columns:1fr;padding:20px 4% 60px;gap:16px}
+  .blog-grid{grid-template-columns:1fr;padding:20px 4% 60px;gap:16px}
+  .programs-grid{grid-template-columns:1fr;padding:30px 4% 50px;gap:18px}
+  .biz-grid{grid-template-columns:1fr}
+  .delivery-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center;gap:8px;font-size:0.73rem}
+
+  /* Service cards — show text permanently since no hover on touch */
+  .srv-card{min-height:220px}
+  .srv-card p{opacity:1}
+  .srv-card-arrow{opacity:1;transform:translateX(0)}
+  .srv-card:active .srv-card-overlay{
+    background:linear-gradient(0deg,rgba(0,60,36,0.92) 30%,rgba(0,30,20,0.7) 100%)
+  }
+  .srv-card:active h3{color:var(--green)}
+
+  /* Portfolio & Blog */
+  .port-thumb{height:190px}
+  .blog-thumb{height:160px}
+
+  /* Program cards */
+  .prog-thumb{height:190px}
+  .prog-body{padding:18px 16px}
+  .prog-card h3{font-size:0.97rem}
+  .enroll-btn{width:100%;justify-content:center;padding:12px}
+
+  /* Academy sub nav — horizontal scroll */
+  #academy-subnav{
+    top:60px;
+    height:auto;
+    padding:8px 4%;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+  .academy-nav-items{
+    display:flex;
+    gap:2px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    flex-wrap:nowrap;
+    width:100%;
+    padding-bottom:4px;
+  }
+  .academy-nav-items::-webkit-scrollbar{display:none}
+  .academy-nav-items li span{
+    padding:7px 10px;
+    font-size:0.78rem;
+    white-space:nowrap
+  }
+  .academy-signup{width:100%;text-align:center;padding:10px}
+
+  /* Academy hero */
+  .academy-hero{padding:60px 4% 40px}
+  .academy-hero h1{font-size:clamp(1.6rem,6vw,2.4rem)}
+
+  /* Sections padding */
+  .section{padding:60px 4%}
+  .srv-intro{padding:60px 4% 30px}
+  .vm-grid{padding:40px 4%}
+  .team-section{padding:0 4% 50px}
+  .clients-section{padding:0 4% 50px}
+  .biz-units{padding:0 4% 60px}
+
+  /* About page */
+  .about-hero{padding:80px 4% 50px}
+  .about-hero h1{font-size:clamp(1.7rem,6vw,2.6rem)}
+
+  /* Vision mission cards */
+  .vm-card{padding:24px 20px}
+
+  /* Team cards */
+  .team-card{padding:20px 16px;gap:14px}
+  .team-avatar{width:54px;height:54px;font-size:1.2rem}
+
+  /* Client chips */
+  .clients-grid{gap:10px}
+  .client-chip{padding:8px 14px;font-size:0.8rem}
+
+  /* Contact page */
+  .contact-page{padding:70px 4% 60px}
+  .contact-grid{grid-template-columns:1fr;gap:32px}
+  .contact-form,
+  .contact-form-box{padding:24px 16px}
+  /* CRITICAL for iPhone — prevents auto zoom on input focus */
+  .form-group input,
+  .form-group textarea,
+  .form-group select{
+    padding:13px 14px;
+    font-size:16px
+  }
+  .form-row{grid-template-columns:1fr}
+  .submit-btn{padding:15px;font-size:1rem}
+
+  /* Footer */
+  footer{padding:50px 4% 24px}
+  .footer-brand>p{max-width:100%}
+  .social-row{gap:8px}
+
+  /* Modals — slide up from bottom on mobile */
+  .srv-modal-overlay,
+  .blog-modal-overlay{
+    padding:10px;
+    align-items:flex-end
+  }
+  .srv-modal,
+  .blog-modal{
+    padding:24px 18px;
+    border-radius:20px 20px 0 0;
+    max-height:90vh;
+    overflow-y:auto
+  }
+  .modal-title{font-size:1.2rem}
+  .bm-title{font-size:1.1rem}
+  .modal-list li{font-size:0.85rem;padding:9px 12px}
+
+  /* Sections general text sizing */
+  .sec-title{font-size:clamp(1.5rem,6vw,2.2rem)}
+  .sec-desc{font-size:0.9rem}
+  .eyebrow{font-size:0.68rem}
+  .why-card{padding:24px 20px}
+  .why-card h3{font-size:0.97rem}
+  .why-card p{font-size:0.83rem}
+  .cert-card{padding:18px 16px}
+  .biz-card{padding:22px 18px}
+  .delivery-card{padding:20px 16px}
+
+  /* WhatsApp button — above browser bottom bar */
+  .whatsapp-float{
+    bottom:80px;
+    right:16px;
+    width:52px;
+    height:52px
+  }
+}
+
+/* ── MOBILE PORTRAIT LARGE (max 480px) ── */
+@media(max-width:480px){
+  #main-nav{padding:0 3%}
+  .hero{padding:76px 4% 50px}
+  .hero-title{font-size:clamp(1.7rem,7vw,2.2rem)}
+  .hero-stats{gap:14px}
+  .stat-n{font-size:1.6rem}
+  .programs-grid{padding:24px 4% 44px}
+  .prog-thumb{height:170px}
+  .port-grid{padding:16px 4% 50px}
+  .port-thumb{height:170px}
+  .blog-grid{padding:16px 4% 50px}
+  .blog-thumb{height:150px}
+  .srv-grid{padding:0 3% 50px}
+  .section{padding:50px 4%}
+  .sec-title{font-size:clamp(1.4rem,7vw,2rem)}
+  .contact-page{padding:60px 4% 50px}
+  .academy-hero{padding:50px 4% 36px}
+  footer{padding:44px 4% 20px}
+  .why-card{padding:20px 16px}
+  .cert-grid{gap:14px}
+  .team-card{flex-direction:column;text-align:center;padding:20px 16px}
+  .team-avatar{width:60px;height:60px}
+
+  /* WhatsApp */
+  .whatsapp-float{
+    bottom:76px;
+    right:14px;
+    width:50px;
+    height:50px
+  }
+}
+
+/* ── MOBILE PORTRAIT SMALL — Budget Android, older iPhones (max 380px) ── */
+@media(max-width:380px){
+  #main-nav{height:56px;padding:0 3%}
+  .mob-nav{top:56px}
+  #academy-subnav{top:56px}
+  .hero{padding:70px 3% 44px}
+  .hero-title{font-size:1.65rem;line-height:1.18}
+  .hero-p{font-size:0.87rem}
+  .hero-badge{font-size:0.62rem;padding:4px 8px;letter-spacing:0.06em}
+  .hero-stats{gap:12px}
+  .stat-n{font-size:1.45rem}
+  .stat-l{font-size:0.63rem}
+  .sec-title{font-size:1.35rem}
+  .sec-desc{font-size:0.85rem}
+  .academy-nav-items li span{font-size:0.72rem;padding:5px 7px}
+  .prog-thumb{height:155px}
+  .prog-body{padding:14px 12px}
+  .prog-card h3{font-size:0.9rem}
+  .prog-tag{font-size:0.65rem;padding:3px 7px}
+  .enroll-btn{font-size:0.78rem;padding:10px}
+  .port-thumb{height:155px}
+  .port-body{padding:14px}
+  .port-card h3{font-size:0.88rem}
+  .blog-thumb{height:140px}
+  .blog-card h3{font-size:0.85rem}
+  .why-card{padding:18px 14px}
+  .why-card h3{font-size:0.93rem}
+  .team-card{padding:16px 12px}
+  .client-chip{font-size:0.75rem;padding:7px 10px}
+  .ci-row{padding:12px 14px}
+  .ci-val{font-size:0.83rem}
+  .form-group input,
+  .form-group textarea,
+  .form-group select{padding:11px 12px;font-size:16px}
+  .submit-btn{padding:13px;font-size:0.93rem}
+  .modal-title{font-size:1.05rem}
+  .bm-title{font-size:1rem}
+  .modal-list li{font-size:0.8rem}
+  .srv-card{min-height:190px}
+  .footer-col h5{font-size:0.73rem}
+  .footer-col ul li{font-size:0.78rem}
+  .footer-brand>p{font-size:0.78rem}
+  footer{padding:36px 4% 18px}
+  .section{padding:44px 3%}
+  .contact-page{padding:56px 3% 44px}
+
+  /* WhatsApp */
+  .whatsapp-float{
+    bottom:72px;
+    right:12px;
+    width:46px;
+    height:46px
+  }
+}
+
+/* ── FLOATING WHATSAPP BUTTON ── */
+.whatsapp-float{
+  position:fixed;
+  bottom:28px;
+  right:24px;
+  left:auto;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#25D366;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  box-shadow:0 4px 20px rgba(37,211,102,0.45);
+  text-decoration:none;
+  transition:all 0.3s ease;
+  animation:waBounce 2.5s ease-in-out infinite;
+}
+.whatsapp-float:hover{
+  background:#1ebe5d;
+  transform:translateY(-3px) scale(1.08);
+  box-shadow:0 8px 28px rgba(37,211,102,0.6);
+}
+.whatsapp-label{display:none}
+
+@keyframes waBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MAIN NAV ══ -->
+<nav id="main-nav">
+  <div class="logo-wrap" onclick="showPage('home')">
+    <div class="logo-mark">
+      <img src="logo1.png" alt="Excel Technology Solutions Logo"/>
+    </div>
+  </div>
+  <ul class="nav-items" id="navItems">
+    <li class="nav-active" id="nav-home"><span onclick="showPage('home')">Home</span></li>
+    <li id="nav-services"><span onclick="showPage('services')">Our Services</span></li>
+    <li id="nav-about"><span onclick="showPage('about')">About Us</span></li>
+    <li id="nav-portfolio"><span onclick="showPage('portfolio')">Portfolio</span></li>
+    <li id="nav-academy"><span onclick="showPage('academy')">Excel Academy</span></li>
+    <li id="nav-blog"><span onclick="showPage('blog')">Blog</span></li>
+  </ul>
+  <button class="nav-git" onclick="showPage('contact')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    Get In Touch
+  </button>
+  <button class="hamburger" onclick="toggleMob()" id="hamBtn">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <span onclick="showPage('home');closeMob()">🏠 Home</span>
+  <span onclick="showPage('services');closeMob()">⚙️ Our Services</span>
+  <span onclick="showPage('about');closeMob()">🏢 About Us</span>
+  <span onclick="showPage('portfolio');closeMob()">📁 Portfolio</span>
+  <span onclick="showPage('academy');closeMob()">🎓 Excel Academy</span>
+  <span onclick="showPage('blog');closeMob()">📝 Blog</span>
+  <span onclick="showPage('contact');closeMob()" style="color:var(--green)">💬 Get In Touch</span>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: HOME
+══════════════════════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div style="position:absolute; inset:0; z-index:0; overflow:hidden;">
+      <img class="hero-slide" src="world.jpg" alt="Excel Technology" style="opacity:1;"/>
+      <img class="hero-slide" src="industry-4.0.jpg" alt="Excel Technology"/>
+      <img class="hero-slide" src="engineer.jpg" alt="Excel Technology"/>
+      <img class="hero-slide" src="automation-robotics.jpg" alt="Excel Technology"/>
+      <img class="hero-slide" src="solar-farm.jpg" alt="Excel Technology"/>
+      <img class="hero-slide" src="industry-4.0-1.jpg" alt="Excel Technology"/>
+      <img class="hero-slide" src="electrical-engineering.jpg" alt="Excel Technology"/>
+    </div>
+
+    <svg class="circuit-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#00C48C" stroke-width="1" fill="none">
+        <path d="M0 180 H180 V90 H380 V180 H560 V130 H780 V240 H980 V180 H1200"/>
+        <path d="M0 380 H130 V340 H280 V430 H480 V360 H680 V400 H880 V360 H1060 V430 H1200"/>
+        <path d="M90 0 V140 H180 V290 H130 V480 H185 V700"/>
+        <path d="M480 0 V70 H580 V190 H530 V380 H580 V700"/>
+        <path d="M880 0 V110 H830 V260 H930 V430 H880 V700"/>
+        <circle cx="180" cy="90" r="4" fill="#00C48C"/>
+        <circle cx="580" cy="130" r="4" fill="#F5A623"/>
+        <circle cx="780" cy="240" r="4" fill="#00C48C"/>
+        <circle cx="280" cy="430" r="4" fill="#F5A623"/>
+        <circle cx="680" cy="400" r="4" fill="#00C48C"/>
+      </g>
+    </svg>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="badge-dot"></span>Nigeria's Trusted Tech Partner</div>
+      <h1 class="hero-title">
+        Technology That<br><span class="g">Builds</span> the <span class="a">Future</span>
+      </h1>
+      <p class="hero-p">Excel Technology Solutions delivers robotics, automation, renewable energy, IoT, electrical installation, and digital systems — empowering businesses and communities across West Africa.</p>
+      <div class="hero-btns">
+        <button class="btn-green" onclick="showPage('services')">Explore Our Services →</button>
+        <button class="btn-outline" onclick="showPage('portfolio')">View Portfolio</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-n" data-t="9"><span>9</span></div><div class="stat-l">Service Areas</div></div>
+        <div><div class="stat-n">7<span>+</span></div><div class="stat-l">Years Active</div></div>
+        <div><div class="stat-n">20<span>+</span></div><div class="stat-l">Projects Delivered</div></div>
+        <div><div class="stat-n">4.0<span></span></div><div class="stat-l">Industry Focus</div></div>
+      </div>
+    </div>
+    <div class="hero-gfx">
+      <div class="hex-grid">
+        <div class="hex-cell">🤖</div>
+        <div class="hex-cell">⚡</div>
+        <div class="hex-cell">☀️</div>
+        <div class="hex-cell">🌐</div>
+        <div class="hex-cell">📡</div>
+        <div class="hex-cell">🔧</div>
+        <div class="hex-cell">🚗</div>
+        <div class="hex-cell">💡</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Why Excel Technology</span>
+      <h2 class="sec-title">Innovation at Every Layer</h2>
+      <p class="sec-desc">From hardware to software, installation to education — we operate where technology meets real-world impact.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">🏭</div>
+        <h3>Industry 4.0 Ready</h3>
+        <p>We integrate IoT, automation, and smart systems to bring your operations into the modern era — reducing waste and increasing efficiency.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🌍</div>
+        <h3>Built for West Africa</h3>
+        <p>Our solutions are designed for local realities — reliable under grid constraints, affordable at scale, and grounded in community needs.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🎓</div>
+        <h3>Knowledge Transfer</h3>
+        <p>Through Excel Academy, we train the next generation of engineers, developers, and makers — turning skills into sustainable careers.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">♻️</div>
+        <h3>Eco-Friendly Systems</h3>
+        <p>Solar energy, EV technology, and smart grids are core to our offering. We build sustainable tech that works for people and planet alike.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🔬</div>
+        <h3>Prototype to Production</h3>
+        <p>We start with prototype development and validate demand before scaling — keeping quality high and risk low for every client.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🤝</div>
+        <h3>End-to-End Partnership</h3>
+        <p>From consulting and design to installation and training, we stay with you through the full lifecycle of your technology investment.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="text-align:center">
+    <div class="reveal">
+      <span class="eyebrow">Ready to Work Together?</span>
+      <h2 class="sec-title" style="max-width:520px;margin:0 auto 16px">Let's Build Something Impactful</h2>
+      <p class="sec-desc" style="margin:0 auto 32px">Whether you need a smart system, solar installation, website, or staff training — we have the expertise and the drive to deliver.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-green" onclick="showPage('contact')">Get In Touch →</button>
+        <button class="btn-outline" onclick="showPage('academy')">Explore Academy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER inside each page -->
+  <div id="footer-home"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════ -->
+<div class="page" id="page-services">
+  <div class="page-wrap">
+    <div class="srv-intro reveal">
+      <span class="eyebrow">What We Do</span>
+      <h1 class="sec-title">Our Line of Services</h1>
+      <p class="sec-desc" style="margin:0 auto">Specialised fields covering the full spectrum of modern technology</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card reveal" onclick="openSrv(0)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="web-and-app-dev.jpg" 
+              alt="Web & App Development"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">01 · </div>
+          <h3>Web &amp; App Development</h3>
+          <p>Custom websites and mobile applications built with modern frameworks for your business goals.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+     <div class="srv-card reveal" onclick="openSrv(1)">
+        <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="electrical-installations.jpg" 
+              alt="Electrical Installation"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">02 · </div>
+          <h3>Electrical Installation</h3>
+          <p>Residential, commercial, factory, and government electrical systems — safely installed and certified.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(2)">
+        <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="latest-robotics-diy-projects.jpg" 
+              alt="Robotics"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">03 · </div>
+          <h3>Robotics</h3>
+          <p>Mobile robots, AGVs, drones, UAVs and more — custom-built for industry, education, and competition.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(3)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="iot-projects.jpg" 
+              alt="IoT Projects & Solutions"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">04 ·</div>
+          <h3>IoT Projects &amp; Solutions</h3>
+          <p>Smart homes, agriculture, parking, energy monitoring, and smart city deployments.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(4)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="control automation.jpg" 
+              alt="Industry Automation"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">05 · </div>
+          <h3>Industry Automation</h3>
+          <p>DOL systems, PLC control, and IoT-cloud SCADA systems to automate your production lines.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(5)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="solar-energy-system.jpg" 
+              alt="Solar Energy System"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">06 · </div>
+          <h3>Solar Energy System</h3>
+          <p>Home and commercial solar installation, solar water heating, and mini-grid power generation.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(6)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="motor-transformer.jpg" 
+              alt="Electric Motors & Transformers"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">07 · </div>
+          <h3>Electric Motors &amp; Transformers</h3>
+          <p>Rewinding and servicing industry pumps, commercial transformers, and electric motors.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(7)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="electric-vehicle.jpg" 
+              alt="Electric Vehicles"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">08 · </div>
+          <h3>Electric Vehicles</h3>
+          <p>E-bike sales, motorcycle conversion to Electric, and EV charging station installation.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+      <div class="srv-card reveal" onclick="openSrv(8)">
+         <div class="srv-card-bg gb2" style="padding:0; font-size:0;">
+          <img src="it-consulting.jpg" 
+              alt="IT Consulting"
+              style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"/>
+        </div>
+        <div class="srv-card-overlay"></div>
+        <div class="srv-card-body">
+          <div class="srv-num">09 · </div>
+          <h3>IT Consulting</h3>
+          <p>IoT component supply, site and office services, and innovation technology consulting.</p>
+          <div class="srv-card-arrow">View Services →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-services"></div>
+</div>
+
+<!-- SERVICE MODAL -->
+<div class="srv-modal-overlay" id="srvModal" onclick="closeSrv(event)">
+  <div class="srv-modal" id="srvModalContent">
+    <button class="modal-close" onclick="closeSrv(null,true)">✕</button>
+    <div class="modal-icon" id="mIcon"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-sub" id="mSub"></div>
+    <div class="modal-divider"></div>
+    <ul class="modal-list" id="mList"></ul>
+    <div style="margin-top:24px">
+      <button class="btn-green" onclick="showPage('contact');closeSrv(null,true)">Request This Service →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="page-wrap">
+    <div class="about-hero">
+      <div class="about-hero-grid">
+        <div class="reveal">
+            <div class="hero-badge"><span class="badge-dot"></span>About Excel Technology Solutions</div>
+          <h1>Leading Industry 4.0 in West Africa</h1>
+          <p>Excel Technology Solutions is a technology industry focused on supporting innovation and leading the 4.0 industrial revolution in Nigeria. We aim to become the top leading tech industry in West Africa, providing solutions to various societal problems through smart innovation and eco-friendly technology.</p>
+        </div>
+        <div class="about-vis reveal">
+          <div class="about-stat-card">
+            <div class="asc-icon">🏆</div>
+            <div><div class="asc-n">2</div><div class="asc-l">Certifications</div></div>
+          </div>
+          <div class="about-stat-card">
+            <div class="asc-icon">📍</div>
+            <div><div class="asc-n">2</div><div class="asc-l">Offices in Nigeria</div></div>
+          </div>
+          <div class="about-stat-card">
+            <div class="asc-icon">🌍</div>
+            <div><div class="asc-n">W. Africa</div><div class="asc-l">Target Market</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vm-grid">
+      <div class="vm-card reveal">
+        <div class="vm-head"><div class="vm-icon">🎯</div><h3>Our Vision</h3></div>
+        <ul>
+          <li>To become a leading Industry 4.0 technology company in West Africa</li>
+          <li>Driving innovation through robotics, automation, renewable energy, and digital solutions</li>
+          <li>Be the benchmark for quality and impact-driven technology on the continent</li>
+        </ul>
+      </div>
+      <div class="vm-card reveal">
+        <div class="vm-head"><div class="vm-icon">🚀</div><h3>Our Mission</h3></div>
+        <ul>
+          <li>Integrate advanced technologies into everyday life and business</li>
+          <li>Empower young minds with practical, industry-relevant skills</li>
+          <li>Deliver scalable solutions in automation, energy, and smart systems</li>
+          <li>Provide smart, eco-friendly IoT and robotic systems to industries</li>
+          <li>Accelerate solar and EV adoption across Nigeria</li>
+          <li>Make IT consulting and digital tools accessible to SMEs</li>
+          <li>Equip factories with automation to reduce cost and human error</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="team-section">
+      <div class="sec-head reveal">
+          <div class="hero-badge"><span class="badge-dot"></span>Our Team</div>
+        <h2 class="sec-title">The Team Behind Excel Technology</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar">FK</div>
+          <div>
+            <div class="team-name">Engr. Fawzan Khidru</div>
+            <div class="team-role">CEO — Excel Technology Solutions</div>
+          </div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">MO</div>
+          <div>
+            <div class="team-name">Engr. Muhammad Osinowo </div>
+            <div class="team-role">Co-Founder &amp; CFO — Excel Technology Solutions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clients-section">
+      <div class="sec-head reveal">
+        <div class="hero-badge"><span class="badge-dot"></span>Who we Serve</div>
+        <h2 class="sec-title">Our Clients &amp; Collaborators</h2>
+      </div>
+      <div class="clients-grid reveal">
+        <div class="client-chip"><span>🏫</span> Technology Institutions</div>
+        <div class="client-chip"><span>🔧</span> Technical Schools</div>
+        <div class="client-chip"><span>📚</span> Secondary Schools</div>
+        <div class="client-chip"><span>🏭</span> Manufacturing Industries</div>
+        <div class="client-chip"><span>🏠</span> Residential Houses</div>
+        <div class="client-chip"><span>🏛️</span> Governmental Buildings</div>
+        <div class="client-chip"><span>🤝</span> Educational Collaborators</div>
+        <div class="client-chip"><span>⚡</span> Commercial Enterprises</div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-about"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: PORTFOLIO
+══════════════════════════════ -->
+<div class="page" id="page-portfolio">
+  <div class="page-wrap">
+    <div class="srv-intro reveal">
+      <div class="hero-badge"><span class="badge-dot"></span>Our Work</div>
+      <h1 class="sec-title">Portfolio</h1>
+      <p class="sec-desc" style="margin:0 auto">A proven track record of real-world deployments services offered by Excel Technology Solutions.</p>
+    </div>
+    <div class="port-grid">
+      <div class="port-card reveal">
+        <div class="port-thumb pb1">⚡</div>
+        <div class="port-body">
+          <div class="port-year">Control System · 2019</div>
+          <h3>5× ATS Systems for 5KW Residential Homes</h3>
+          <p>Designed and installed five Automatic Transfer Switch systems to ensure uninterrupted power supply in residential properties in Iwo city and its environment.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb2">⏱️</div>
+        <div class="port-body">
+          <div class="port-year">Automation · 2022</div>
+          <h3>Industrial Pumping Machine Timer</h3>
+          <p>Automated timer system for industrial pumping machines at London Estate, Minna — reducing manual operation and energy waste.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb3">🏠</div>
+        <div class="port-body">
+          <div class="port-year">Electrical Installation</div>
+          <h3>Complete Electrical Installaion — Residential &amp; Worship Spaces Wiring</h3>
+          <p>Full electrical conduit and surface installation up to 7KW capacity for residential buildings and places of worship across Osun State.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb4">🔧</div>
+        <div class="port-body">
+          <div class="port-year">Engineering · 2019</div>
+          <h3>Commercial Transformer Rewinding</h3>
+          <p>Complete rewinding and restoration of a commercial transformer, restoring full operational capacity with certified workmanship.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb5">📊</div>
+        <div class="port-body">
+          <div class="port-year">AI · IoT · 2025</div>
+          <h3>AI-IIoT Energy Monitoring System</h3>
+          <p>Intelligent Industrial IoT energy monitoring platform using AI analytics to track, predict, and optimize energy consumption in real time.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb6">🧢</div>
+        <div class="port-body">
+          <div class="port-year">IoT Projects · 2023</div>
+          <h3>Smart Solar Cap</h3>
+          <p>A wearable solar-powered cap with embedded IoT sensors — a product development showcase combining renewable energy and electronics.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb7">🌡️</div>
+        <div class="port-body">
+          <div class="port-year">IoT Projects · 2024</div>
+          <h3>Smart IoT Fan — Temperature-Responsive</h3>
+          <p>A room-temperature-responsive fan system using embedded IoT sensors and automated control logic for smart comfort management.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb8">🏡</div>
+        <div class="port-body">
+          <div class="port-year">Smart Home · 2025</div>
+          <h3>Smart Load Control System</h3>
+          <p>Automated load management for smart homes — dynamically controlling power distribution to optimize consumption and prevent overload.</p>
+        </div>
+      </div>
+      <div class="port-card reveal">
+        <div class="port-thumb pb9">🏗️</div>
+        <div class="port-body">
+          <div class="port-year">SCADA · 2026</div>
+          <h3>SCADA System for Packaging Production</h3>
+          <p>Full-stack SCADA deployment for monitoring and controlling production processes at a packaging facility — counting all packages transported by conveyor.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates -->
+    <div class="cert-section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Credentials</span>
+        <h2 class="sec-title">Certifications &amp; Licenses</h2>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card reveal">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <div class="cert-name">Licensed Electrical Contractor</div>
+            <div class="cert-issuer">NEMSA — Nigeria Electricity Management Services Agency · 2023</div>
+          </div>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <div class="cert-name">Certified IoT Platform Engineer</div>
+            <div class="cert-issuer">BNSP — Issued by the Government of Indonesia · 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-portfolio"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: BLOG
+══════════════════════════════ -->
+<div class="page" id="page-blog">
+  <div class="page-wrap">
+    <div class="srv-intro reveal">
+      <span class="eyebrow">Insights &amp; Stories</span>
+      <h1 class="sec-title">Blog</h1>
+      <p class="sec-desc" style="margin:0 auto">Lessons from the field — every article is drawn from a real project we've delivered.</p>
+    </div>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+  <div id="footer-blog"></div>
+</div>
+
+<!-- BLOG MODAL -->
+<div class="blog-modal-overlay" id="blogModal" onclick="closeBlog(event)">
+  <div class="blog-modal">
+    <button class="blog-modal-close" onclick="closeBlogDirect()">✕</button>
+    <div class="bm-emoji" id="bmEmoji"></div>
+    <div class="bm-cat" id="bmCat"></div>
+    <div class="bm-title" id="bmTitle"></div>
+    <div class="bm-date" id="bmDate"></div>
+    <div class="bm-body" id="bmBody"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: ACADEMY
+══════════════════════════════ -->
+<div class="page" id="page-academy">
+  <div class="page-wrap">
+    <nav id="academy-subnav">
+      <ul class="academy-nav-items" id="acNavItems">
+        <li class="acdm-active" id="acn-programs"><span onclick="showAcademyPage('programs')">Programs</span></li>
+        <li id="acn-bootcamp"><span onclick="showAcademyPage('bootcamp')">Bootcamp</span></li>
+        <li id="acn-portfolio"><span onclick="showAcademyPage('acportfolio')">Portfolio</span></li>
+        <li id="acn-aboutac"><span onclick="showAcademyPage('aboutac')">About Us</span></li>
+        <li id="acn-acblog"><span onclick="showAcademyPage('acblog')">Blog</span></li>
+      </ul>
+      <button class="academy-signup" onclick="window.open('https://selar.com/w21q2at117','_blank')">🎓 My Learning →</button>
+    </nav>
+
+    <!-- Programs -->
+    <div class="academy-sub-page active" id="acp-programs">
+      <div class="academy-hero">
+        <span class="eyebrow" style="color:var(--amber)">Excel Academy</span>
+        <h1>Learn. <span style="color:var(--amber)"> Build.</span> <span style="color:var(--green)">Lead.</span>
+        </h1>
+        <p>Hands-on technology education for students, career-changers, and professionals. Our programs bridge the gap between textbook theory and real-world engineering.</p>
+      </div>
+<div class="programs-grid">
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="iotembedded.jpg" alt="IoT and Embedded Systems"/>
+    </div>
+    <div class="prog-body">
+      <h3>IoT &amp; Embedded Systems Fundamentals</h3>
+      <p>Projects-based bootcamp covering sensors, microcontrollers, and industrial IoT deployments. Participants will work on real-world projects to gain hands-on experience, and simulate real projects online without the need for physical hardware.</p>
+      <div class="prog-price">₦25,000</div>
+      <span class="prog-tag">Bootcamp</span>
+      <span class="prog-tag">Projects</span>
+      <span class="prog-tag">Available</span><br/> 
+      <button class="enroll-btn" onclick="window.open('https://selar.com/w21q2at117','_blank')">Enroll Now →</button>
+    </div>
+  </div>
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="trainingkit.jpg" alt="Building IoT Projects with Hardware Training Kits"/>
+    </div>
+    <div class="prog-body">
+      <h3>Building IoT Projects with Hardware Training Kits</h3>
+      <p>This bootcamp will provide participants with hands-on experience in building IoT projects using the hardware training kits provided by Excel Technology Solutions and do simulations using both online and offline working environments.</p>
+      <!-- <div class="prog-price">₦45,000</div> -->
+      <span class="prog-tag">Bootcamp</span>
+      <span class="prog-tag">Projects</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(1)">Enroll Now →</button>
+    </div>
+  </div>
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="iotplatforms.jpg" alt="Mastering IoT Platforms"/>
+    </div>
+    <div class="prog-body">
+      <h3>Mastering IoT Platforms</h3>
+      <p>Participants will learn to design, develop, and deploy IoT solutions on various platforms, visualize data, and master the communication protocols.</p>
+      <!-- <div class="prog-price">₦35,000</div> -->
+      <span class="prog-tag">Course</span>
+      <span class="prog-tag">Certification</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(2)">Enroll Now →</button>
+    </div>
+  </div>  
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="webapp.jpg" alt="Web and App Development"/>
+    </div>
+    <div class="prog-body">
+      <h3>Web &amp; App Development</h3>
+      <p>Full-stack web and mobile app development — from HTML/CSS and JavaScript to backend APIs and deployment.</p>
+      <!-- <div class="prog-price">₦30,000</div> -->
+      <span class="prog-tag">Course</span>
+      <span class="prog-tag">Certification</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(3)">Enroll Now →</button>
+    </div>
+  </div>
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="pcbdesign.jpg" alt="PCB Design"/>
+    </div>
+    <div class="prog-body">
+      <h3>PCB Design</h3>
+      <p>Learn to design printed circuit boards using industry-standard tools. From schematic capture to fabrication-ready Gerber files and how to print professional PCBs in bulk from trusted manufacturers.</p>
+      <!-- <div class="prog-price">₦25,000</div> -->
+      <span class="prog-tag">Course</span>
+      <span class="prog-tag">Practical</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(4)">Enroll Now →</button>
+    </div>
+  </div>  
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="mobilerobot.jpg" alt="Mobile Robotics"/>
+    </div>
+    <div class="prog-body">
+      <h3>Mobile Robotics</h3>
+      <p>Build, program, and deploy mobile robots — from obstacle avoiders, line followers to autonomous navigation systems and trajectory planning.</p>
+      <!-- <div class="prog-price">₦50,000</div> -->
+      <span class="prog-tag">Bootcamp</span>
+      <span class="prog-tag">Projects</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(5)">Enroll Now →</button>
+    </div>
+  </div>
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+       <img src="electric-vehicle1.jpg" alt="Electric vehicle Technology"/>
+      </div>    
+      <div class="prog-body">
+      <h3>Electric vehicle Technology</h3>
+      <p>Learn the basics of electric vehicle technology, including battery systems, motor control, and charging infrastructure. Participants will explore the latest advancements in the field and understand the principles behind electric vehicle operation.</p>
+      <!-- <div class="prog-price">₦25,000</div> -->
+      <span class="prog-tag">Course</span>
+      <span class="prog-tag">Certification</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(6)">Enroll Now →</button>
+    </div>
+  </div>  
+  <div class="prog-card reveal">
+    <div class="prog-thumb">
+      <img src="solarpv.jpg" alt="Solar System Installation"/>
+    </div>
+    <div class="prog-body">
+      <h3>Solar System Installation</h3>
+      <p>Solar PV system design, battery storage sizing, charge controllers, and mini-grid configurations for off-grid and hybrid systems.</p>
+      <!-- <div class="prog-price">₦20,000</div> -->
+      <span class="prog-tag">Course</span>
+      <span class="prog-tag">Certification</span>
+      <span class="prog-tag">Upcoming</span><br/>
+      <button class="enroll-btn" onclick="openPayModal(7)">Enroll Now →</button>
+    </div>
+  </div>
+</div> 
+</div> 
+
+    <!-- Bootcamp -->
+    <div class="academy-sub-page" id="acp-bootcamp">
+      <div class="academy-hero">
+        <span class="eyebrow" style="color:var(--amber)">Delivery Methods</span>
+        <h1>How We <span style="color:var(--amber)">Teach</span></h1>
+        <p>Our learning model is built around doing, not just watching. Every method delivers measurable, portfolio-worthy outcomes.</p>
+      </div>
+      <div class="delivery-grid" style="padding:50px 5% 60px">
+        <div class="delivery-card reveal">
+          <div class="del-icon">🎬</div>
+          <div><div class="del-title">LMS — Recorded Courses</div><div class="del-p">Self-paced learning via our online platform. Watch lessons, complete quizzes, and access materials anytime, anywhere.</div></div>
+        </div>
+        <div class="delivery-card reveal">
+          <div class="del-icon">📹</div>
+          <div><div class="del-title">Live Online Sessions</div><div class="del-p">Real-time interactive classes with instructors. Ask questions, get immediate feedback, and learn alongside peers.</div></div>
+        </div>
+        <div class="delivery-card reveal">
+          <div class="del-icon">🏫</div>
+          <div><div class="del-title">Physical Workshops</div><div class="del-p">Hands-on sessions at our training facilities in Iwo and Lagos. Build real hardware, troubleshoot live systems.</div></div>
+        </div>
+        <div class="delivery-card reveal">
+          <div class="del-icon">🛠️</div>
+          <div><div class="del-title">Project-Based Learning with Kits</div><div class="del-p">Receive a hardware kit, follow guided project tracks, and build a complete working system from scratch as your final project.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academy Portfolio -->
+    <div class="academy-sub-page" id="acp-acportfolio">
+      <div class="academy-hero">
+        <span class="eyebrow" style="color:var(--amber)">Student Work</span>
+        <h1>Academy <span style="color:var(--amber)">Portfolio</span></h1>
+        <p>Projects built by our students and business units — demonstrating the quality and depth of what our programs produce.</p>
+      </div>
+      <div class="biz-units" style="padding:50px 5% 80px">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Business Units</span>
+          <h2 class="sec-title">Three Strategic Pillars</h2>
+        </div>
+        <div class="biz-grid">
+          <div class="biz-card reveal">
+            <div class="biz-icon">🏭</div>
+            <h3>Manufacturing &amp; Product Development</h3>
+            <ul>
+              <li>Robotics &amp; Mechatronics Systems</li>
+              <li>Automation &amp; Smart IoT Devices</li>
+              <li>Renewable Energy Systems</li>
+              <li>Electric Vehicles (Assembly to Manufacturing)</li>
+              <li>Flagship: Smart Home Automation Kit</li>
+              <li>Flagship: Solar Power Starter Kit</li>
+              <li>Flagship: Educational Robotics Kit</li>
+            </ul>
+          </div>
+          <div class="biz-card reveal">
+            <div class="biz-icon">🔨</div>
+            <h3>Installation &amp; Infrastructure</h3>
+            <ul>
+              <li>Websites &amp; Digital Platforms</li>
+              <li>Solar System Installation</li>
+              <li>IoT Smart Home &amp; Office Setup</li>
+              <li>EV Charging Station Deployment</li>
+              <li>Electronics &amp; IoT Component Retail</li>
+            </ul>
+          </div>
+          <div class="biz-card reveal">
+            <div class="biz-icon">🎓</div>
+            <h3>Teaching &amp; Knowledge Transfer</h3>
+            <ul>
+              <li>IoT &amp; Embedded Systems Bootcamp</li>
+              <li>Robotics Courses with Kits</li>
+              <li>Web &amp; App Development Training</li>
+              <li>Renewable Energy Curriculum</li>
+              <li>PCB Design Workshops</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academy About -->
+    <div class="academy-sub-page" id="acp-aboutac">
+      <div class="academy-hero">
+        <span class="eyebrow" style="color:var(--amber)">About Excel Academy</span>
+        <h1>Skills for the <span style="color:var(--amber)">Real World</span></h1>
+        <p>Excel Academy is the education arm of Excel Technology Solutions Ltd — designed to empower young Nigerians with practical, in-demand technology skills that lead directly to employment or entrepreneurship.</p>
+      </div>
+      <div class="section">
+        <div class="why-grid">
+          <div class="why-card reveal"><div class="why-icon">🎯</div><h3>Industry-Led Curriculum</h3><p>Every course is designed by working engineers — not just educators. Our syllabus reflects what real employers and projects actually require.</p></div>
+          <div class="why-card reveal"><div class="why-icon">🤝</div><h3>Mentorship Access</h3><p>Students get direct access to our senior engineers for guidance, code reviews, and career support throughout their program.</p></div>
+          <div class="why-card reveal"><div class="why-icon">📦</div><h3>Hardware Kits Included</h3><p>Select programs include physical hardware kits so students can build, test, and keep their projects as portfolio pieces.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academy Blog -->
+    <div class="academy-sub-page" id="acp-acblog">
+      <div class="academy-hero">
+        <span class="eyebrow" style="color:var(--amber)">Academy Blog</span>
+        <h1>Learning <span style="color:var(--amber)">Insights</span></h1>
+        <p>Tips, tutorials, and student spotlights from the Excel Academy community.</p>
+      </div>
+      <div class="section" style="padding-top:30px">
+        <div class="why-grid">
+          <div class="why-card reveal"><div class="why-icon">📡</div><h3>Getting Started with ESP32 and MQTT</h3><p>A step-by-step guide for beginners — connecting your first IoT sensor to a cloud broker using our Academy kit.</p></div>
+          <div class="why-card reveal"><div class="why-icon">☀️</div><h3>Sizing a Solar Battery Bank for Off-Grid Use</h3><p>How to calculate your load, choose battery capacity, and size your charge controller for reliable off-grid power.</p></div>
+          <div class="why-card reveal"><div class="why-icon">🤖</div><h3>Building a Line-Following Robot from Scratch</h3><p>From chassis design to PID control — a complete walkthrough of our Mobile Robotics course flagship project.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div id="footer-academy"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-wrap">
+    <div class="contact-page">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <span class="eyebrow">Get In Touch</span>
+          <h2>Let's Talk About Your Project</h2>
+          <p>Whether you need a solar installation, a smart automation system, a custom website, or a staff training program — our team is ready to listen and provide a free consultation.</p>
+          <div class="contact-items">
+            <div class="ci-row">
+              <div class="ci-icon">📍</div>
+              <div><div class="ci-label">Head Office</div><div class="ci-val">Iwo, Osun State, Nigeria</div></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">🏢</div>
+              <div><div class="ci-label">Branch Office</div><div class="ci-val">Lagos State, Nigeria</div></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">📧</div>
+              <div><div class="ci-label">Email</div><div class="ci-val">exceltechs26@gmail.com</div></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">📱</div>
+              <div><div class="ci-label">WhatsApp / Phone</div><div class="ci-val">+234 906 906 2842</div></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">🌐</div>
+              <div><div class="ci-label">Website</div><div class="ci-val">www.exceltech.com.ng</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-box reveal">
+  <h3>Send Us a Message</h3>
+
+  <form id="contactForm" 
+        action="https://formspree.io/f/xlgynrja" 
+        method="POST" 
+        onsubmit="handleFormSubmit(event)">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="firstName" placeholder="First Name" required/>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="lastName" placeholder="Last Name" required/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" name="email" placeholder="you@example.com" required/>
+    </div>
+
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" name="phone" placeholder="+234 800 000 0000"/>
+    </div>
+
+    <div class="form-group">
+      <label>Service Interest</label>
+      <select name="service">
+        <option value="">Select a service...</option>
+        <option>Web &amp; App Development</option>
+        <option>Electrical Installation</option>
+        <option>Robotics</option>
+        <option>IoT Projects &amp; Solutions</option>
+        <option>Industry Automation</option>
+        <option>Solar Energy System</option>
+        <option>Electric Motors &amp; Transformers</option>
+        <option>Electric Vehicles</option>
+        <option>IT Consulting</option>
+        <option>Excel Academy Training</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Message</label>
+      <textarea name="message" 
+                placeholder="Tell us about your project or question..." 
+                required></textarea>
+    </div>
+
+    <!-- Spam filter — hidden from users -->
+    <input type="text" name="_gotcha" style="display:none"/>
+    <!-- Email subject line you will see in your inbox -->
+    <input type="hidden" name="_subject" value="New enquiry from exceltech.com.ng"/>
+
+    <button type="submit" class="submit-btn" id="submitBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
+           stroke="currentColor" stroke-width="2.5">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+      Send Message
+    </button>
+
+  </form>
+</div>
+      </div>
+    </div>
+  </div>
+  <div id="footer-contact"></div>
+</div>
+
+<!-- ══ FOOTER TEMPLATE ══ -->
+<template id="footer-tpl">
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-wrap" onclick="showPage('home')" style="cursor:pointer">
+        <div class="logo-mark">
+          <img src="logo1.png" alt="Excel Technology Solutions Logo"/>
+        </div>
+      </div>
+      <p>A leading Industry 4.0 technology company in West Africa — delivering robotics, automation, renewable energy, and digital innovation that transforms communities.</p>
+      <div class="social-row">
+        <a href="#" class="soc-btn">in</a>
+        <a href="#" class="soc-btn">tw</a>
+        <a href="#" class="soc-btn">fb</a>
+        <a href="#" class="soc-btn">yt</a>
+        <a href="#" class="soc-btn">ig</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Explore</h5>
+      <ul>
+        <li><span onclick="showPage('home')">Home</span></li>
+        <li><span onclick="showPage('about')">About Us</span></li>
+        <li><span onclick="showPage('services')">Our Services</span></li>
+        <li><span onclick="showPage('blog')">Blog</span></li>
+        <li><span onclick="showPage('contact')">Contact Us</span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><span>Web &amp; App Development</span></li>
+        <li><span>Solar Energy Systems</span></li>
+        <li><span>IoT &amp; Automation</span></li>
+        <li><span>Robotics</span></li>
+        <li><span>Electric Vehicles</span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:exceltechs26@gmail.com">info@exceltech.com.ng</a></li>
+        <li><a href="https://wa.me/2349069062842">WhatsApp</a></li>
+        <li><span>Head Office: Iwo, Osun State</span></li>
+        <li><span>Branch: Lagos State, Nigeria</span></li>
+        <li><a href="#">www.exceltech.com.ng</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Excel Technology Solutions Ltd. All rights reserved.</span>
+    <div class="hq-pill">📍 Iwo, Osun State · Lagos, Nigeria</div>
+  </div>
+</footer>
+</template>
+
+<script>
+// ── DATA ──
+const services=[
+  {icon:'🌐',title:'Web & App Development',sub:'Digital platforms, websites & mobile apps',items:['Website Development — corporate, e-commerce, portfolio','App Development — Android & iOS mobile applications']},
+  {icon:'⚡',title:'Electrical Installation',sub:'Certified wiring & electrification services',items:['Residential House Wiring','Commercial Building Wiring','Factory & Industry Electrification','Governmental Building Electrification']},
+  {icon:'🤖',title:'Robotics',sub:'Custom-built robotic systems for every application',items:['Mobile Robot','Automated Guided Robot (AGR)','Transporter Robot','Soccer Robot','VTOL and Drones','Racing UAV Plane','Fixed Wing UAV Planes']},
+  {icon:'📡',title:'IoT Projects & Solutions',sub:'Connected systems for smarter living and industry',items:['Smart Home Automation','Smart Agriculture System','Smart Parking System','Energy Monitoring System','Smart City Solutions']},
+  {icon:'🏭',title:'Industry Automation',sub:'Automating industrial processes end to end',items:['Automatic DOL (Direct-On-Line) System','PLC Industry Control System','IoT Cloud SCADA System']},
+  {icon:'☀️',title:'Solar Energy System',sub:'Clean energy solutions for homes and grids',items:['Home Solar Installation','Solar Device Installation','Solar Water Heating System','Mini Grid Solar Power Generation Construction']},
+  {icon:'🔧',title:'Electric Motors & Transformers',sub:'Rewinding & restoration services',items:['Industry Pumping Machine Winding','Commercial Transformer Winding','Industrial Electric Motor Winding']},
+  {icon:'🚗',title:'Electric Vehicles',sub:'EV sales, conversion & charging infrastructure',items:['Sales of E-Bike','E-Motorcycle Conversion to Electric','EV Charging Station Installation']},
+  {icon:'💡',title:'IT Consulting',sub:'Strategic tech advisory & component supply',items:['Selling of IoT Components','Site and Office Technology Services','Consult Innovation Tech Solutions for your Industry']}
+];
+
+const blogPosts=[
+  {emoji:'⚡',cat:'Electrical',date:'2019',title:'Building 5 ATS Systems for Residential Power Backup',body:`<p>In 2019, our team was commissioned to design and install five Automatic Transfer Switch (ATS) systems across five 5KW residential properties in Nigeria. The challenge was ensuring seamless, automatic switchover between grid power and backup generators with zero user intervention.</p><h4>What is an ATS?</h4><p>An ATS automatically detects a power failure and switches the electrical load to an alternate source — typically a generator or battery inverter. For homeowners who rely on uninterrupted power for appliances, security systems, and medical devices, this is critical.</p><h4>Our Approach</h4><p>We used contactors and a custom relay logic control board to sense mains voltage, trigger the generator start sequence, and transfer the load seamlessly from the backup generator to the grid once there is power from the grid and the generator will be off automatically. Each system was rated at 5KW and installed inside weatherproof enclosures.</p><h4>Lessons Learned</h4><p>Calibrating the voltage sensing threshold was critical — too sensitive and the ATS would trip on minor fluctuations; too high and residents would experience longer outages. We settled on a 180V lower threshold with a 30-second delay before transfer.</p>`},
+  {emoji:'⏱️',cat:'Automation',date:'2022',title:'Automating an Industrial Pumping Machine with a Timer at London Estate, Minna',body:`<p>A residential estate in Minna, Niger State, approached us in 2022 to reduce the labour cost and inefficiency of manually operating their industrial water pumping machine. The pump had to be started and stopped at specific times daily — a task that was being done unreliably by estate workers.</p><h4>The Solution</h4><p>We designed and installed a DIN-rail mounted digital timer relay system connected to the pump's control circuit. The timer was programmed with three daily cycles — morning, afternoon, and evening — each with configurable on/off durations. A manual override switch was also added for emergency use.</p><h4>Results</h4><p>Water supply reliability improved dramatically. The estate management reported a 40% reduction in water wastage from over-pumping, and zero missed pump cycles in the first three months of operation.</p>`},
+  {emoji:'🏠',cat:'Electrical',date:'Ongoing',title:'Complete Conduit Wiring for Residential & Worship Spaces Up to 7KW',body:`<p>Electrical conduit wiring is the backbone of any safe and durable electrical installation. Over the years, Excel Technology has completed full conduit wiring systems for residential buildings and places of worship across Nigeria, handling loads up to 7KW per installation.</p><h4>Why Conduit Wiring?</h4><p>PVC conduit systems protect wiring from physical damage, moisture, and vermin — extending installation life significantly beyond surface-mounted or concealed cables run without conduit. They also simplify future maintenance and upgrades.</p><h4>Our Process</h4><p>We begin with a load calculation and circuit planning phase, then layout conduit runs for lighting, power sockets, and distribution boards. All work follows NEMSA standards, and installations are tested with an insulation resistance tester before handover.</p>`},
+  {emoji:'🔧',cat:'Engineering',date:'2019',title:'Commercial Transformer Rewinding: Restoring What Others Would Replace',body:`<p>In 2019, a commercial client approached us with a faulty distribution transformer that had suffered winding insulation failure. The standard recommendation from most contractors was full replacement — at significant cost. We proposed rewinding.</p><h4>The Rewinding Process</h4><p>After de-energising and isolating the transformer, we removed the existing windings and inspected the core for damage. The core was in good condition. We calculated the new winding specifications, sourced enamelled copper wire of the correct gauge, and rewound both primary and secondary coils using a controlled winding machine.</p><h4>Outcome</h4><p>The restored transformer passed all post-rewind tests — including turns ratio test, insulation resistance check, and loaded voltage test — and was returned to service at a fraction of replacement cost. This project became a blueprint for our transformer repair service.</p>`},
+  {emoji:'📊',cat:'AI · IoT',date:'2025',title:'Building an AI-Powered Industrial IoT Energy Monitoring System',body:`<p>Energy waste is one of the biggest hidden costs in Nigerian industry. In 2025, we deployed our most ambitious project to date: an AI-IIoT Energy Monitoring System that uses machine learning to analyse consumption patterns and automatically flag inefficiencies.</p><h4>System Architecture</h4><p>The system uses CT clamps and voltage sensors connected to ESP32 microcontrollers, feeding data to an MQTT broker on AWS. A Python-based analytics layer applies anomaly detection algorithms to identify unusual consumption events in real time.</p><h4>Dashboard & Alerts</h4><p>A custom web dashboard shows live kWh readings per circuit, daily/weekly cost projections, and AI-generated efficiency recommendations. Alerts are pushed via SMS and email when thresholds are exceeded.</p><h4>Impact</h4><p>The client reported a 22% reduction in electricity costs within the first month of deployment through better load scheduling and elimination of phantom loads identified by the AI module.</p>`},
+  {emoji:'🧢',cat:'IoT',date:'2023',title:'The Smart Solar Cap: Wearable Tech Meets Renewable Energy',body:`<p>The Smart Solar Cap started as an R&D challenge within our team: could we create a genuinely useful wearable that integrates renewable energy harvesting with IoT sensing in a product people actually use every day?</p><h4>Design Concept</h4><p>A flexible thin-film solar panel is embedded in the cap's brim, charging a small LiPo battery. The battery powers an ESP32-S3 microcontroller with temperature, UV index, and heart-rate sensors. Data is transmitted via Bluetooth to a companion mobile app.</p><h4>Applications</h4><p>The prototype has attracted interest from agricultural workers, construction site supervisors, and sports coaches who need continuous environmental and health monitoring without relying on mains power.</p>`},
+  {emoji:'🌡️',cat:'IoT',date:'2024',title:'Smart IoT Fan: Automatic Comfort Based on Room Temperature',body:`<p>Manual fan speed adjustment is a small but constant friction in any home or office. Our Smart IoT Fan project eliminates it entirely by using a temperature sensor to automatically adjust fan speed based on ambient conditions.</p><h4>How It Works</h4><p>A DHT22 temperature and humidity sensor feeds readings to an Arduino Mega, which drives a TRIAC-based phase-angle controller to vary AC motor speed smoothly across four bands: off, low, medium, and high. A small OLED display shows current temperature and fan status.</p><h4>Smart Home Integration</h4><p>An ESP8266 module adds WiFi connectivity, allowing the fan to be controlled via MQTT commands from a home automation hub (Home Assistant). Users can also set temperature profiles via a mobile dashboard.</p>`},
+  {emoji:'🏡',cat:'Smart Home',date:'2025',title:'Smart Load Control System: Intelligent Power Management for Homes',body:`<p>Load shedding and circuit overloading are chronic problems in Nigerian homes. Our Smart Load Control System addresses both by automatically managing which loads are active based on available power and priority settings.</p><h4>System Design</h4><p>The controller monitors mains voltage and current draw in real time. Loads are divided into three tiers — critical (refrigerator, lights), standard (fans, TV), and deferrable (water heater, washing machine). When total draw approaches the capacity limit, deferrable loads are automatically shed first.</p><h4>User Control</h4><p>A touchscreen panel displays live power consumption per circuit. Users can adjust load priorities and set schedules from the panel or via a companion app. The system logs all load events for weekly review.</p>`},
+  {emoji:'🏗️',cat:'SCADA',date:'2026',title:'Deploying a SCADA System for Packaging Production Monitoring',body:`<p>In early 2026, we deployed our first full SCADA (Supervisory Control and Data Acquisition) system for a packaging company experiencing production inconsistencies and a lack of real-time visibility into their line performance.</p><h4>What We Built</h4><p>PLCs on each production station communicate via Modbus TCP to a central SCADA server running AVEVA Edge. Operators view live production counts, machine status, and fault codes on large-format displays at each station and in the control room.</p><h4>Key Features</h4><p>Automatic OEE (Overall Equipment Effectiveness) calculation, shift performance reports, and predictive maintenance alerts based on motor current signatures. Remote access for management via a secure VPN-connected web dashboard.</p><h4>Results</h4><p>Within the first two months, production downtime dropped by 35% as operators could identify and respond to faults within seconds rather than discovering them during shift changeover checks.</p>`}
+];
+
+// ── PAGE ROUTER ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#navItems li').forEach(li=>li.classList.remove('nav-active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg){pg.classList.add('active');window.scrollTo(0,0);}
+  const ni=document.getElementById('nav-'+id);
+  if(ni)ni.classList.add('nav-active');
+  // inject footer if not yet
+  const fslot=document.getElementById('footer-'+id);
+  if(fslot&&!fslot.hasChildNodes()){
+    const tpl=document.getElementById('footer-tpl');
+    fslot.appendChild(tpl.content.cloneNode(true));
+  }
+  // init reveals
+  setTimeout(initReveals,100);
+}
+
+// ── MOBILE NAV ──
+function toggleMob(){document.getElementById('mobNav').classList.toggle('open')}
+function closeMob(){document.getElementById('mobNav').classList.remove('open')}
+
+// ── SERVICE MODAL ──
+function openSrv(i){
+  const s=services[i];
+  document.getElementById('mIcon').textContent=s.icon;
+  document.getElementById('mTitle').textContent=s.title;
+  document.getElementById('mSub').textContent=s.sub;
+  const ul=document.getElementById('mList');
+  ul.innerHTML=s.items.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('srvModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSrv(e,force){
+  if(force||e&&e.target===document.getElementById('srvModal')){
+    document.getElementById('srvModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+
+// ── BLOG ──
+function buildBlog(){
+  const grid=document.getElementById('blogGrid');
+  if(grid.hasChildNodes())return;
+  const colors=['pb1','pb2','pb3','pb4','pb5','pb6','pb7','pb8','pb9'];
+  grid.innerHTML=blogPosts.map((b,i)=>`
+    <div class="blog-card reveal" onclick="openBlog(${i})">
+      <div class="blog-thumb ${colors[i%colors.length]}">${b.emoji}</div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="blog-cat">${b.cat}</span><span class="blog-date">${b.date}</span></div>
+        <h3>${b.title}</h3>
+        <p>${b.body.replace(/<[^>]+>/g,'').slice(0,120)}...</p>
+        <div class="blog-read">Read Article →</div>
+      </div>
+    </div>`).join('');
+  setTimeout(initReveals,60);
+}
+function openBlog(i){
+  const b=blogPosts[i];
+  document.getElementById('bmEmoji').textContent=b.emoji;
+  document.getElementById('bmCat').textContent=b.cat;
+  document.getElementById('bmTitle').textContent=b.title;
+  document.getElementById('bmDate').textContent=b.date;
+  document.getElementById('bmBody').innerHTML=b.body;
+  document.getElementById('blogModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBlog(e){if(e.target===document.getElementById('blogModal'))closeBlogDirect()}
+function closeBlogDirect(){document.getElementById('blogModal').classList.remove('open');document.body.style.overflow=''}
+
+// ── ACADEMY SUB NAV ──
+function showAcademyPage(id){
+  document.querySelectorAll('.academy-sub-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#acNavItems li').forEach(li=>li.classList.remove('acdm-active'));
+  const pg=document.getElementById('acp-'+id);
+  if(pg)pg.classList.add('active');
+  const ni=document.getElementById('acn-'+id);
+  if(ni)ni.classList.add('acdm-active');
+  setTimeout(initReveals,60);
+}
+
+// ── FORM ──
+// ── CONTACT FORM — FORMSPREE ──
+window.handleFormSubmit = async function(e){
+  e.preventDefault(); // stop page from reloading
+  const btn = document.getElementById('submitBtn');
+  const form = document.getElementById('contactForm');
+
+  // Show loading state
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Sending...';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if(response.ok){
+      // SUCCESS — form was sent to your email
+      btn.innerHTML = '✓ Message Sent!';
+      btn.style.background = '#00a876';
+      form.reset(); // clear all fields
+      // Reset button after 4 seconds
+      setTimeout(()=>{
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    } else {
+      throw new Error('Server error');
+    }
+
+  } catch(error){
+    // ERROR — show failure message
+    btn.innerHTML = '✕ Failed — Try Again';
+    btn.style.background = '#cc3c3c';
+    setTimeout(()=>{
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
+};
+
+// ── SCROLL REVEAL ──
+function initReveals(){
+  const els=document.querySelectorAll('.reveal:not(.vis)');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+  },{threshold:0.1});
+  els.forEach(el=>obs.observe(el));
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  showPage('home');
+});
+
+// Override showPage to also build blog if needed
+const _origShow=showPage;
+window.showPage=function(id){
+  _origShow(id);
+  if(id==='blog')buildBlog();
+};
+// ── HERO SLIDE FUNCTION ──
+(function(){
+  const slides = document.querySelectorAll('.hero-slide');
+  if(!slides.length) return;
+  let current = 0;
+
+  setInterval(function(){
+    // Fade out current slide
+    slides[current].style.opacity = '0';
+
+    // Move to next slide (loop back to 0 at end)
+    current = (current + 1) % slides.length;
+
+    // Fade in next slide
+    slides[current].style.opacity = '1';
+
+  }, 5000); // ← Change 5000 to adjust seconds (5000 = 5 seconds)
+})();
+// ── WHATSAPP FLOAT SCROLL BEHAVIOUR ──
+(function(){
+  const waBtn = document.querySelector('.whatsapp-float');
+  if(!waBtn) return;
+  let lastScroll = 0;
+  window.addEventListener('scroll', function(){
+    const current = window.scrollY;
+    if(current > lastScroll && current > 300){
+      waBtn.style.opacity = '0.5';
+      waBtn.style.transform = 'scale(0.88)';
+    } else {
+      waBtn.style.opacity = '1';
+      waBtn.style.transform = 'scale(1)';
+    }
+    lastScroll = current;
+  });
+})();
+</script>
+<!-- ── FLOATING WHATSAPP BUTTON ── -->
+<a href="https://wa.me/2349069062842"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="whatsapp-float"
+   title="Chat with us on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30" height="30">
+    <path fill="#fff" d="M24 4C13 4 4 13 4 24c0 3.6 1 7 2.7 9.9L4 44l10.4-2.7C17.1 43 20.5 44 24 44c11 0 20-9 20-20S35 4 24 4z"/>
+    <path fill="#25D366" d="M24 6.5C14.3 6.5 6.5 14.3 6.5 24c0 3.3.9 6.4 2.5 9.1l.4.7-1.7 6.1 6.3-1.6.7.4c2.6 1.5 5.6 2.3 8.7 2.3 9.7 0 17.5-7.8 17.5-17.5S33.7 6.5 24 6.5z"/>
+    <path fill="#fff" d="M19.3 15.6c-.4-.9-.8-.9-1.2-.9h-1c-.4 0-.9.1-1.4.7-.5.5-1.9 1.8-1.9 4.5s1.9 5.2 2.2 5.6c.3.4 3.7 5.9 9.1 8 1.3.5 2.3.8 3 1 1.3.4 2.5.3 3.4.2 1-.1 3.1-1.3 3.6-2.5.4-1.2.4-2.3.3-2.5-.1-.2-.5-.3-.9-.5-.5-.3-3.1-1.5-3.5-1.7-.5-.2-.8-.3-1.2.3-.3.5-1.3 1.7-1.6 2-.3.4-.6.4-1.1.1-.5-.3-2-.7-3.8-2.4-1.4-1.3-2.3-2.8-2.6-3.3-.3-.5 0-.7.2-1 .2-.2.5-.6.7-.8.2-.3.3-.5.5-.8.2-.4 0-.7-.1-1z"/>
+  </svg>
+</a>
+</body>
+</html>
